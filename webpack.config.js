@@ -28,9 +28,19 @@ devServer: {
   publicPath: '/'
 },
 
-  module: {
+module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        enforce: "pre",
+        loader: "eslint-loader",
+        exclude: /node_modules/,
+        options: {
+          emitWarning: true,
+          configFile: "./.eslintrc.json"
+          }
+        },
+        {
         test: /\.jsx?$/,
         loader: "babel-loader",
         exclude: /node_modules/,
@@ -40,11 +50,12 @@ devServer: {
             "react",
           ],
           plugins: [
-            "react-hot-loader/babel"
+            "react-hot-loader/babel",
+            "styled-jsx/babel"
           ]
         }
-      },
-    ],
+      }
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
